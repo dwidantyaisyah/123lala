@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
+import os
 
 sns.set(style='dark')
 
@@ -25,11 +26,18 @@ def create_weather_df(df):
     
     return weather_df
 
-# Load data
-bike_df = pd.read_csv('day.csv')
-
-# Convert date column to datetime
-bike_df['dteday'] = pd.to_datetime(bike_df['dteday'])
+# Load data with error handling
+file_path = 'day.csv'
+if os.path.exists(file_path):
+    try:
+        bike_df = pd.read_csv(file_path)
+        bike_df['dteday'] = pd.to_datetime(bike_df['dteday'])
+    except Exception as e:
+        st.error(f"Error reading the data file: {e}")
+        st.stop()
+else:
+    st.error(f"Data file '{file_path}' not found. Please ensure it is in the correct directory.")
+    st.stop()
 
 # Sidebar filter
 min_date = bike_df["dteday"].min()
