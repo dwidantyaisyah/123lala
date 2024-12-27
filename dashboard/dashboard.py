@@ -30,13 +30,13 @@ def create_weather_df(df):
 day_file_path = "data/day.csv"
 if os.path.exists(day_file_path):
     try:
-        bike_df = pd.read_csv(file_path)
+        bike_df = pd.read_csv(day_file_path)
         bike_df['dteday'] = pd.to_datetime(bike_df['dteday'])
     except Exception as e:
         st.error(f"Error reading the data file: {e}")
         st.stop()
 else:
-    st.error(f"Data file '{file_path}' not found. Please ensure it is in the correct directory.")
+    st.error(f"Data file '{day_file_path}' not found. Please ensure it is in the correct directory.")
     st.stop()
 
 # Sidebar filter
