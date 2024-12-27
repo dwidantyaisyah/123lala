@@ -27,8 +27,8 @@ def create_weather_df(df):
     return weather_df
 
 # Load data with error handling
-file_path = 'data/day.csv'
-if os.path.exists(file_path):
+day_file_path = "data/day.csv"
+if os.path.exists(day_file_path):
     try:
         bike_df = pd.read_csv(file_path)
         bike_df['dteday'] = pd.to_datetime(bike_df['dteday'])
